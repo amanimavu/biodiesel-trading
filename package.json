@@ -6,12 +6,18 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev  --background",
+    "dev:logs": "astro dev logs",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "generate-types": "wrangler types"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^14.2.0",
     "astro": "^7.2.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.120.1"
   }
 }
