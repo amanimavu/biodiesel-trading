@@ -1,0 +1,85 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  ctaText?: string;
+  ctaHref?: string;
+  image?: string;
+}
+
+const {
+  title = "Trusted Trading of Biodiesel Feedstocks, Worldwide",
+  subtitle = "Golden Tie's Biodiesel Feedstock Trading arm sources and moves biofuels, waste feedstocks, and feed-grade by-products, connecting suppliers and refiners across global markets.",
+  ctaText = "Get in Touch",
+  ctaHref = "#contact",
+  image,
+} = Astro.props;
+---
+
+<section class="hero" style={image ? `--hero-image: url(${image})` : undefined}>
+  {image && <img class="hero-image" src={image} alt="" />}
+  <div class="hero-scrim"></div>
+
+  <div class="hero-content container">
+    <h1>{title}</h1>
+    <p>{subtitle}</p>
+    <a class="btn btn-primary" href={ctaHref}>{ctaText}</a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 88vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    background: radial-gradient(
+        120% 100% at 15% 0%,
+        rgba(214, 164, 0, 0.35) 0%,
+        rgba(214, 164, 0, 0) 45%
+      ),
+      linear-gradient(135deg, #2a2318 0%, #211c15 55%, #171310 100%);
+  }
+
+  .hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.82) 0%,
+      rgba(0, 0, 0, 0.35) 55%,
+      rgba(0, 0, 0, 0.15) 100%
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    padding: var(--space-8) var(--space-4) var(--space-12);
+    max-width: 42rem;
+  }
+
+  .hero-content h1 {
+    color: #fff;
+  }
+
+  .hero-content p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: var(--text-lg);
+    margin-top: var(--space-3);
+    max-width: 38rem;
+  }
+
+  .hero-content .btn {
+    margin-top: var(--space-4);
+  }
+</style>
