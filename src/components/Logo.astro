@@ -2,12 +2,13 @@
 interface Props {
   text?: string;
   class?: string;
+  compact?: boolean;
 }
 
-const { text = "BIODIESEL", class: className = "" } = Astro.props;
+const { text = "BIODIESEL", class: className = "", compact = false } = Astro.props;
 ---
 
-<div class={`logo ${className}`}>
+<div class={`logo ${compact ? "logo-compact" : ""} ${className}`}>
   <svg
     class="logo-emblem"
     viewBox="0 0 7409 4768"
@@ -96,6 +97,22 @@ const { text = "BIODIESEL", class: className = "" } = Astro.props;
     width: 100%;
     height: auto;
     display: block;
+  }
+
+  .logo-compact {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .logo-compact .logo-emblem {
+    width: 2.25rem;
+    flex-shrink: 0;
+  }
+
+  .logo-compact .logo-text {
+    font-size: 1.125rem;
+    letter-spacing: 0.1em;
   }
 
   .logo-text {

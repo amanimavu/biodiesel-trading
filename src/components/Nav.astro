@@ -1,0 +1,256 @@
+---
+import Logo from "./Logo.astro";
+
+const links = [
+  { label: "Who We Are", href: "#who-we-are" },
+  {
+    label: "Products We Trade",
+    href: "#products",
+    children: [
+      { label: "Biofuels", href: "#products-biofuels" },
+      { label: "Feedstocks & By-Products", href: "#products-feedstocks" },
+      { label: "Feed & Technical Products", href: "#products-feed-technical" },
+    ],
+  },
+  { label: "Sustainability", href: "#sustainability" },
+  { label: "Countries of Operation", href: "#countries" },
+];
+---
+
+<header class="nav">
+  <div class="nav-inner container">
+    <a class="nav-brand" href="/" aria-label="Golden Tie — Biodiesel Feedstock Trading">
+      <Logo compact />
+    </a>
+
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" />
+    <label for="nav-toggle" class="nav-toggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+    <nav class="nav-links" aria-label="Primary">
+      <ul>
+        {
+          links.map((link) => (
+            <li class:list={["nav-item", { "has-children": link.children }]}>
+              <a href={link.href}>
+                {link.label}
+                {link.children && <span class="nav-caret" aria-hidden="true">⌄</span>}
+              </a>
+              {link.children && (
+                <ul class="nav-dropdown">
+                  {link.children.map((child) => (
+                    <li>
+                      <a href={child.href}>{child.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+
+      <a class="btn btn-primary nav-cta" href="#contact">Get in Touch</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: 0.875rem var(--space-4);
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-toggle-input {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 2.25rem;
+    height: 2.25rem;
+    cursor: pointer;
+  }
+
+  .nav-toggle span {
+    display: block;
+    height: 2px;
+    background: var(--color-ink);
+    border-radius: 1px;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .nav-links ul {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-item {
+    position: relative;
+  }
+
+  .nav-item > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25em;
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: var(--color-ink);
+    padding: 0.5rem 0;
+  }
+
+  .nav-item > a:hover {
+    color: var(--color-accent);
+  }
+
+  .nav-caret {
+    font-size: 0.75em;
+    transition: transform 0.15s ease;
+  }
+
+  .nav-item.has-children:hover .nav-caret,
+  .nav-item.has-children:focus-within .nav-caret {
+    transform: rotate(180deg);
+  }
+
+  .nav-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 15rem;
+    margin: 0;
+    padding: var(--space-1);
+    list-style: none;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 12px 24px rgba(33, 28, 21, 0.08);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+  }
+
+  .nav-item.has-children:hover .nav-dropdown,
+  .nav-item.has-children:focus-within .nav-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .nav-dropdown li a {
+    display: block;
+    padding: 0.625rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: var(--color-ink-soft);
+  }
+
+  .nav-dropdown li a:hover {
+    background: var(--color-accent-tint);
+    color: var(--color-ink);
+  }
+
+  .nav-cta {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9375rem;
+  }
+
+  @media (max-width: 860px) {
+    .nav-toggle {
+      display: flex;
+    }
+
+    .nav-links {
+      position: fixed;
+      inset: 4.25rem var(--space-4) auto;
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-3);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-3);
+      box-shadow: 0 16px 32px rgba(33, 28, 21, 0.12);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+    }
+
+    .nav-toggle-input:checked ~ .nav-links {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .nav-links ul {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+
+    .nav-item > a {
+      width: 100%;
+      padding: 0.75rem 0.25rem;
+    }
+
+    .nav-dropdown {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      box-shadow: none;
+      border: none;
+      background: var(--color-surface-alt);
+      margin: 0 0 0.5rem;
+    }
+
+    .nav-item.has-children .nav-dropdown {
+      display: none;
+    }
+
+    .nav-item.has-children:focus-within .nav-dropdown {
+      display: block;
+    }
+
+    .nav-cta {
+      justify-content: center;
+      margin-top: var(--space-1);
+    }
+  }
+</style>
