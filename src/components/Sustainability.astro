@@ -1,0 +1,99 @@
+---
+const pillars = [
+  {
+    title: "ISCC Certified",
+    description: "Supply chains verified against international sustainability standards.",
+    icon: "M9 12l2 2 4-4M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z",
+  },
+  {
+    title: "Traceability",
+    description: "Every shipment tracked from source to final buyer.",
+    icon: "M12 21c-4-4-7-7.5-7-11a7 7 0 1114 0c0 3.5-3 7-7 11zM12 8a2 2 0 100 4 2 2 0 000-4z",
+  },
+  {
+    title: "GHG Reduction",
+    description: "Feedstocks selected to cut lifecycle carbon emissions.",
+    icon: "M4 20h16M6 20V10l6-6 6 6v10M10 20v-6h4v6",
+  },
+  {
+    title: "Responsible Sourcing",
+    description: "Vetted suppliers held to consistent ethical and quality standards.",
+    icon: "M12 3l2.5 5 5.5.8-4 3.9.9 5.5-4.9-2.6-4.9 2.6.9-5.5-4-3.9 5.5-.8L12 3z",
+  },
+];
+---
+
+<section id="sustainability" class="section sustainability">
+  <div class="container">
+    <span class="eyebrow">Sustainability</span>
+    <h2>Trading built on traceable, certified supply</h2>
+    <p class="sustainability-intro">
+      Sustainability isn't a side claim — it's built into how we vet suppliers,
+      document shipments, and choose which feedstocks we bring to market.
+    </p>
+
+    <div class="pillars-grid">
+      {
+        pillars.map((pillar) => (
+          <div class="pillar">
+            <svg
+              class="pillar-icon"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d={pillar.icon} />
+            </svg>
+            <h3>{pillar.title}</h3>
+            <p>{pillar.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .sustainability-intro {
+    max-width: 40ch;
+    margin-top: var(--space-2);
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+  }
+
+  .pillar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .pillar-icon {
+    stroke: var(--color-green);
+    margin-bottom: var(--space-1);
+  }
+
+  .pillar h3 {
+    font-size: var(--text-lg);
+  }
+
+  @media (max-width: 860px) {
+    .pillars-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .pillars-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
