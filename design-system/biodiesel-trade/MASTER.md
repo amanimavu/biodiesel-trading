@@ -17,10 +17,10 @@ Golden Tie subsidiary. Trades biodiesel feedstocks (UCO, POME, animal fats, glyc
 ## Color
 
 ```css
---color-bg:          #FBF8F2;  /* page background, warm off-white */
+--color-bg:          #FBF8F0;  /* page background, pale gold tint (Figma gold ramp, ~90% white) */
 --color-surface:     #FFFFFF;  /* cards, nav bar */
---color-surface-alt: #F1E9DA;  /* alternating section bg, beige/tan */
---color-border:      #E6DCC8;  /* hairlines, card borders */
+--color-surface-alt: #F3E9C7;  /* alternating section bg, muted gold tint — subtle, not a flat gold field */
+--color-border:      #D9C98F;  /* hairlines, card borders — muted gold tone, grayed down from accent */
 
 --color-ink:         #211C15;  /* headings, primary text — warm near-black */
 --color-ink-soft:    #59544A;  /* body copy, secondary text */
