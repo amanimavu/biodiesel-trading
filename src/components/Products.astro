@@ -1,0 +1,85 @@
+---
+const groups = [
+  {
+    id: "products-biofuels",
+    title: "Biofuels",
+    description: "UCOME, FAME, and HVO blends traded across producer and refiner networks.",
+  },
+  {
+    id: "products-feedstocks",
+    title: "Feedstocks & By-Products",
+    description: "UCO, POME, animal fats, and glycerol sourced from vetted supply chains.",
+  },
+  {
+    id: "products-feed-technical",
+    title: "Feed & Technical Products",
+    description: "Fish oil, lecithin, and fatty acids for feed and industrial applications.",
+  },
+];
+---
+
+<section id="products" class="section section-alt products">
+  <div class="container">
+    <span class="eyebrow">Products We Trade</span>
+    <h2>Commodities moving through our network</h2>
+    <p class="products-intro">
+      From raw feedstocks to finished biofuels, we trade across the value chain
+      with the documentation and traceability physical buyers and sellers require.
+    </p>
+
+    <div class="products-grid">
+      {
+        groups.map((group) => (
+          <div id={group.id} class="card-photo product-card">
+            <div class="card-photo-content">
+              <h3>
+                {group.title}
+                <span class="product-arrow" aria-hidden="true">→</span>
+              </h3>
+              <p>{group.description}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .products-intro {
+    max-width: 40ch;
+    margin-top: var(--space-2);
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+  }
+
+  .product-card {
+    background: linear-gradient(135deg, var(--color-ink) 0%, var(--color-ink-soft) 100%);
+  }
+
+  .product-card h3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+
+  .product-arrow {
+    transition: transform 0.15s ease;
+  }
+
+  .product-card:hover .product-arrow {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 860px) {
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
