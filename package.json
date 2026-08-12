@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "biodiesel",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -8,6 +8,8 @@
   "scripts": {
     "dev": "astro dev  --background",
     "dev:logs": "astro dev logs",
+    "dev:stop": "astro dev stop",
+    "dev:status": "astro dev status",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
