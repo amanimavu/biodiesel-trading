@@ -1,0 +1,94 @@
+---
+import oilStorageBarrelsUrl from "../assets/images/oil-storage-barrels.jpg?url";
+
+const stats = [
+  { label: "Physical Trading Company" },
+  { label: "Golden Tie Subsidiary" },
+  { label: "Global Feedstock Reach" },
+];
+---
+
+<section id="who-we-are" class="section who-we-are">
+  <div class="container who-grid">
+    <div class="who-copy">
+      <span class="eyebrow">Who We Are</span>
+      <h2>A physical trading partner for biodiesel feedstocks</h2>
+      <p>
+        We buy, sell, and move biodiesel feedstocks and biofuel commodities between
+        producers, refiners, and end buyers — handling the logistics, documentation,
+        and counterparty relationships that physical trade demands.
+      </p>
+      <p>
+        Our team brings deep commodity trading expertise to every deal, backed by the
+        network and financial strength of the Golden Tie group. We build long-term
+        partnerships rather than one-off transactions, so counterparties can rely on
+        consistent supply and consistent standards.
+      </p>
+    </div>
+
+    <img
+      class="who-image"
+      src={oilStorageBarrelsUrl}
+      alt="Biodiesel feedstock trading operations"
+    />
+  </div>
+
+  <div class="container who-stats">
+    {
+      stats.map((stat) => (
+        <div class="capsule">
+          <p class="who-stat-label">{stat.label}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .who-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+    align-items: center;
+  }
+
+  .who-copy p {
+    margin-top: var(--space-3);
+  }
+
+  .who-image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+  }
+
+  .who-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+  }
+
+  .who-stat-label {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  @media (max-width: 860px) {
+    .who-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .who-image {
+      order: -1;
+    }
+
+    .who-stats {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
