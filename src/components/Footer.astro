@@ -211,6 +211,21 @@ const socials = [
     .footer-columns {
       grid-template-columns: repeat(2, 1fr);
     }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-brand :global(.logo-container) {
+      width: fit-content;
+    }
+
+    .footer-socials {
+      justify-content: center;
+    }
   }
 
   @media (max-width: 520px) {
