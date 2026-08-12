@@ -1,19 +1,26 @@
 ---
+import oilFactoryUrl from "../assets/images/oil-factory.jpg?url";
+import usedCookingOilUrl from "../assets/images/used-cooking-oil.webp?url";
+import soyOilUrl from "../assets/images/soy-oil.jpg?url";
+
 const groups = [
   {
     id: "products-biofuels",
     title: "Biofuels",
     description: "UCOME, FAME, and HVO blends traded across producer and refiner networks.",
+    image: oilFactoryUrl,
   },
   {
     id: "products-feedstocks",
     title: "Feedstocks & By-Products",
     description: "UCO, POME, animal fats, and glycerol sourced from vetted supply chains.",
+    image: usedCookingOilUrl,
   },
   {
     id: "products-feed-technical",
     title: "Feed & Technical Products",
     description: "Fish oil, lecithin, and fatty acids for feed and industrial applications.",
+    image: soyOilUrl,
   },
 ];
 ---
@@ -31,6 +38,7 @@ const groups = [
       {
         groups.map((group) => (
           <div id={group.id} class="card-photo product-card">
+            {group.image && <img src={group.image} alt="" />}
             <div class="card-photo-content">
               <h3>
                 {group.title}
@@ -70,10 +78,12 @@ const groups = [
   }
 
   .product-arrow {
-    transition: transform 0.15s ease;
+    transition: transform 0.15s ease, color 0.15s ease, text-shadow 0.15s ease;
   }
 
   .product-card:hover .product-arrow {
+    color: var(--color-accent);
+    text-shadow: 0 0 10px var(--color-accent);
     transform: translateX(4px);
   }
 
