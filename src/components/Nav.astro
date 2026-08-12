@@ -68,6 +68,11 @@ const links = [
     width: 162px;
     height: 152px;
     display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .crest-badge.is-hidden {
+    transform: translateY(-100%);
   }
 
   .crest-shape {
@@ -310,3 +315,23 @@ const links = [
     }
   }
 </style>
+
+<script>
+  const badge = document.querySelector<HTMLElement>(".crest-badge");
+  let lastY = window.scrollY;
+
+  function onScroll() {
+    if (!badge) return;
+    const currentY = window.scrollY;
+
+    if (currentY > lastY && currentY > 80) {
+      badge.classList.add("is-hidden");
+    } else {
+      badge.classList.remove("is-hidden");
+    }
+
+    lastY = currentY;
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+</script>

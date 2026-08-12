@@ -187,7 +187,7 @@ svg {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.75) 100%);
+  background: linear-gradient(180deg, transparent 45%, rgba(0, 0, 0, 0.8) 100%);
 }
 
 .card-photo .card-photo-content {
