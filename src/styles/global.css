@@ -3,10 +3,10 @@
 
 :root {
   /* Color */
-  --color-bg: #fbf8f2;
+  --color-bg: #fbf8f0;
   --color-surface: #ffffff;
-  --color-surface-alt: #f1e9da;
-  --color-border: #e6dcc8;
+  --color-surface-alt: #f3e9c7;
+  --color-border: #d9c98f;
 
   --color-ink: #211c15;
   --color-ink-soft: #59544a;

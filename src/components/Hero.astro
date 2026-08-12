@@ -1,4 +1,6 @@
 ---
+import heroImageUrl from "../assets/images/hero-image.png?url";
+
 interface Props {
   title?: string;
   subtitle?: string;
@@ -12,12 +14,12 @@ const {
   subtitle = "Golden Tie's Biodiesel Feedstock Trading arm sources and moves biofuels, waste feedstocks, and feed-grade by-products, connecting suppliers and refiners across global markets.",
   ctaText = "Get in Touch",
   ctaHref = "#contact",
-  image,
+  image = heroImageUrl,
 } = Astro.props;
 ---
 
-<section class="hero" style={image ? `--hero-image: url(${image})` : undefined}>
-  {image && <img class="hero-image" src={image} alt="" />}
+<section class="hero">
+  <img class="hero-image" src={image} alt="" />
   <div class="hero-scrim"></div>
 
   <div class="hero-content container">
@@ -30,7 +32,7 @@ const {
 <style>
   .hero {
     position: relative;
-    min-height: 88vh;
+    min-height: 100vh;
     display: flex;
     align-items: flex-end;
     overflow: hidden;
@@ -65,7 +67,8 @@ const {
     position: relative;
     z-index: 1;
     padding: var(--space-8) var(--space-4) var(--space-12);
-    max-width: 42rem;
+    max-width: 60rem;
+    margin-left: 8rem;
   }
 
   .hero-content h1 {
