@@ -1,26 +1,27 @@
 ---
-import oilFactoryUrl from "../assets/images/oil-factory.jpg?url";
-import usedCookingOilUrl from "../assets/images/used-cooking-oil.webp?url";
-import soyOilUrl from "../assets/images/soy-oil.jpg?url";
+import ProgressiveImage from "./ProgressiveImage.astro";
+import oilFactory from "../assets/images/oil-factory.jpg";
+import usedCookingOil from "../assets/images/used-cooking-oil.webp";
+import soyOil from "../assets/images/soy-oil.jpg";
 
 const groups = [
   {
     id: "products-biofuels",
     title: "Biofuels",
     description: "UCOME, FAME, and HVO blends traded across producer and refiner networks.",
-    image: oilFactoryUrl,
+    image: oilFactory,
   },
   {
     id: "products-feedstocks",
     title: "Feedstocks & By-Products",
     description: "UCO, POME, animal fats, and glycerol sourced from vetted supply chains.",
-    image: usedCookingOilUrl,
+    image: usedCookingOil,
   },
   {
     id: "products-feed-technical",
     title: "Feed & Technical Products",
     description: "Fish oil, lecithin, and fatty acids for feed and industrial applications.",
-    image: soyOilUrl,
+    image: soyOil,
   },
 ];
 ---
@@ -38,7 +39,18 @@ const groups = [
       {
         groups.map((group) => (
           <div id={group.id} class="card-photo product-card">
-            {group.image && <img src={group.image} alt="" />}
+            {
+              group.image && (
+                <ProgressiveImage
+                  class="card-photo-media"
+                  src={group.image}
+                  alt=""
+                  width={group.image.width}
+                  height={Math.round((group.image.width * 4) / 3)}
+                  layout="full-width"
+                />
+              )
+            }
             <div class="card-photo-content">
               <h3>
                 {group.title}
@@ -68,6 +80,11 @@ const groups = [
 
   .product-card {
     background: linear-gradient(135deg, var(--color-ink) 0%, var(--color-ink-soft) 100%);
+  }
+
+  :global(.card-photo-media) {
+    width: 100%;
+    height: 100%;
   }
 
   .product-card h3 {

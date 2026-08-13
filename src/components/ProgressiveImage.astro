@@ -1,0 +1,103 @@
+---
+import { Image, getImage } from "astro:assets";
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  width: number;
+  height: number;
+  class?: string;
+  layout?: "fixed" | "constrained" | "full-width";
+  priority?: boolean;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  class: className,
+  layout = "constrained",
+  priority = false,
+} = Astro.props;
+
+const placeholder = await getImage({
+  src,
+  width: 20,
+  quality: 10,
+  format: "webp",
+});
+---
+
+<div
+  class:list={["progressive-wrapper", className]}
+  style={`--placeholder-img:url(${placeholder.src}); aspect-ratio:${width}/${height};`}
+>
+  <Image
+    class="progressive-full"
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    layout={layout}
+    loading={priority ? "eager" : "lazy"}
+  />
+</div>
+
+<style>
+  .progressive-wrapper {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .progressive-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--placeholder-img);
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px);
+    transform: scale(1.1);
+  }
+
+  .progressive-wrapper :global(.progressive-full) {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+  }
+
+  .progressive-wrapper :global(.progressive-full[data-loaded="true"]) {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  function markLoaded(img: HTMLImageElement) {
+    img.dataset.loaded = "true";
+  }
+
+  document
+    .querySelectorAll<HTMLImageElement>(".progressive-full")
+    .forEach((img) => {
+      if (img.complete && img.naturalWidth > 0) markLoaded(img);
+    });
+
+  document.addEventListener(
+    "load",
+    (event) => {
+      if (
+        event.target instanceof HTMLImageElement &&
+        event.target.classList.contains("progressive-full")
+      ) {
+        markLoaded(event.target);
+      }
+    },
+    true,
+  );
+</script>

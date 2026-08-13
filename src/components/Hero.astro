@@ -1,12 +1,13 @@
 ---
-import heroImageUrl from "../assets/images/hero-image.png?url";
+import ProgressiveImage from "./ProgressiveImage.astro";
+import heroImage from "../assets/images/hero-image.png";
 
 interface Props {
   title?: string;
   subtitle?: string;
   ctaText?: string;
   ctaHref?: string;
-  image?: string;
+  image?: ImageMetadata;
 }
 
 const {
@@ -14,12 +15,20 @@ const {
   subtitle = "Golden Tie's Biodiesel Feedstock Trading arm sources and moves biofuels, waste feedstocks, and feed-grade by-products, connecting suppliers and refiners across global markets.",
   ctaText = "Get in Touch",
   ctaHref = "#contact",
-  image = heroImageUrl,
+  image = heroImage,
 } = Astro.props;
 ---
 
 <section class="hero">
-  <img class="hero-image" src={image} alt="" />
+  <ProgressiveImage
+    class="hero-image"
+    src={image}
+    alt=""
+    width={image.width}
+    height={image.height}
+    layout="full-width"
+    priority
+  />
   <div class="hero-scrim"></div>
 
   <div class="hero-content container">
@@ -36,20 +45,13 @@ const {
     display: flex;
     align-items: flex-end;
     overflow: hidden;
-    background: radial-gradient(
-        120% 100% at 15% 0%,
-        rgba(214, 164, 0, 0.35) 0%,
-        rgba(214, 164, 0, 0) 45%
-      ),
-      linear-gradient(135deg, #2a2318 0%, #211c15 55%, #171310 100%);
   }
 
-  .hero-image {
-    position: absolute;
+  :global(.hero-image) {
+    position: absolute !important;
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
   }
 
   .hero-scrim {
