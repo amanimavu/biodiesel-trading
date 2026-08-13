@@ -5,7 +5,10 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-    adapter: cloudflare(),
+    site: "https://biodiesel.goldentie.africa",
+    adapter: cloudflare({
+        imageService: "compile",
+    }),
     fonts: [
         {
             provider: fontProviders.fontsource(),
@@ -13,4 +16,8 @@ export default defineConfig({
             cssVariable: "--font-montserrat",
         },
     ],
+    image: {
+        layout: "constrained",
+        responsiveStyles: true,
+    },
 });
