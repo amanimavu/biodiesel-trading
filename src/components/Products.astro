@@ -1,29 +1,7 @@
 ---
 import ProgressiveImage from "./ProgressiveImage.astro";
-import oilFactory from "../assets/images/oil-factory.jpg";
-import usedCookingOil from "../assets/images/used-cooking-oil.webp";
-import soyOil from "../assets/images/soy-oil.jpg";
-
-const groups = [
-  {
-    id: "products-biofuels",
-    title: "Biofuels",
-    description: "UCOME, FAME, and HVO blends traded across producer and refiner networks.",
-    image: oilFactory,
-  },
-  {
-    id: "products-feedstocks",
-    title: "Feedstocks & By-Products",
-    description: "UCO, POME, animal fats, and glycerol sourced from vetted supply chains.",
-    image: usedCookingOil,
-  },
-  {
-    id: "products-feed-technical",
-    title: "Feed & Technical Products",
-    description: "Fish oil, lecithin, and fatty acids for feed and industrial applications.",
-    image: soyOil,
-  },
-];
+import { products as groups } from "../data/products";
+import arrowOutward from "../assets/icons/arrow_outward.svg?raw";
 ---
 
 <section id="products" class="section section-alt products">
@@ -31,14 +9,19 @@ const groups = [
     <span class="eyebrow">Products We Trade</span>
     <h2>Commodities moving through our network</h2>
     <p class="products-intro">
-      From raw feedstocks to finished biofuels, we trade across the value chain
-      with the documentation and traceability physical buyers and sellers require.
+      We source raw feedstocks directly from producers and collectors, and sell
+      them on to refiners and buyers — with the documentation and traceability
+      physical trade requires.
     </p>
 
     <div class="products-grid">
       {
         groups.map((group) => (
-          <div id={group.id} class="card-photo product-card">
+          <a
+            id={group.id}
+            class="card-photo product-card"
+            href={`/products/${group.slug}/`}
+          >
             {
               group.image && (
                 <ProgressiveImage
@@ -54,11 +37,11 @@ const groups = [
             <div class="card-photo-content">
               <h3>
                 {group.title}
-                <span class="product-arrow" aria-hidden="true">→</span>
+                <span class="product-arrow" aria-hidden="true" set:html={arrowOutward} />
               </h3>
               <p>{group.description}</p>
             </div>
-          </div>
+          </a>
         ))
       }
     </div>
@@ -79,12 +62,18 @@ const groups = [
   }
 
   .product-card {
+    display: block;
     background: linear-gradient(135deg, var(--color-ink) 0%, var(--color-ink-soft) 100%);
   }
 
   :global(.card-photo-media) {
     width: 100%;
     height: 100%;
+    transition: transform 0.3s ease;
+  }
+
+  .product-card:hover :global(.card-photo-media) {
+    transform: scale(1.05);
   }
 
   .product-card h3 {
@@ -95,13 +84,25 @@ const groups = [
   }
 
   .product-arrow {
-    transition: transform 0.15s ease, color 0.15s ease, text-shadow 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 1.5px solid #fff;
+    color: #fff;
+    transition: transform 0.15s ease;
+  }
+
+  .product-arrow :global(svg) {
+    width: 1rem;
+    height: 1rem;
   }
 
   .product-card:hover .product-arrow {
-    color: var(--color-accent);
-    text-shadow: 0 0 10px var(--color-accent);
-    transform: translateX(4px);
+    transform: translate(3px, -3px);
   }
 
   @media (max-width: 860px) {
