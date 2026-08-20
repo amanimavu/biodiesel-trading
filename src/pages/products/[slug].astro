@@ -1,0 +1,253 @@
+---
+import RootLayout from "../../layouts/RootLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import ProgressiveImage from "../../components/ProgressiveImage.astro";
+import { products } from "../../data/products";
+
+export function getStaticPaths() {
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+const bannerImage = product.heroImage ?? product.image;
+---
+
+<RootLayout title={`${product.title} — Biodiesel Feedstock Trading`}>
+  <Nav />
+
+  <section class="product-hero">
+    {
+      bannerImage && (
+        <ProgressiveImage
+          class="product-hero-media"
+          src={bannerImage}
+          alt={product.title}
+          width={bannerImage.width}
+          height={Math.round((bannerImage.width * 9) / 21)}
+          layout="full-width"
+          priority
+          scrim
+        />
+      )
+    }
+
+    <div class="product-hero-content container">
+      <h1>{product.title}</h1>
+      <p>{product.description}</p>
+      <a class="btn btn-primary" href="/#contact">Get in Touch</a>
+    </div>
+  </section>
+
+  {
+    product.sections?.map((section, index) => (
+      <section class={`section product-info ${index % 2 === 1 ? "section-alt" : ""}`}>
+        <div class={`container ${section.image ? "product-info-grid" : "product-info-inner"}`}>
+          <div class={section.image ? "product-info-copy" : undefined}>
+            <h2>{section.heading}</h2>
+            {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+            {section.list && (
+              <>
+                {section.listIntro && <p>{section.listIntro}</p>}
+                <ul class="source-list">
+                  {section.list.map((item) => <li>{item}</li>)}
+                </ul>
+              </>
+            )}
+            {section.steps && (
+              <ol class="process-steps">
+                {section.steps.map((step, i) => (
+                  <li style={`--index:${i}`}>{step}</li>
+                ))}
+              </ol>
+            )}
+          </div>
+
+          {section.image && (
+            <ProgressiveImage
+              class="product-info-media"
+              src={section.image}
+              alt=""
+              width={section.image.width}
+              height={section.image.height}
+              layout="constrained"
+            />
+          )}
+        </div>
+      </section>
+    ))
+  }
+
+  <Footer />
+</RootLayout>
+
+<style>
+  .product-hero {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    aspect-ratio: 21 / 9;
+    min-height: 28rem;
+  }
+
+  :global(.product-hero-media) {
+    position: absolute !important;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .product-hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 60ch;
+    margin-left: max(var(--space-4), calc((100% - 1200px) / 2));
+    margin-right: var(--space-4);
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-8);
+  }
+
+  .product-hero-content h1 {
+    color: #fff;
+  }
+
+  .product-hero-content p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: var(--text-lg);
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .product-info-inner {
+    max-width: 60ch;
+  }
+
+  .product-info-inner p,
+  .product-info-copy p {
+    margin-top: var(--space-3);
+  }
+
+  .product-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+    align-items: stretch;
+  }
+
+  :global(.product-info-media) {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 861px) {
+    :global(.product-info-media) {
+      height: 70%;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .product-info-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .source-list {
+    list-style: disc;
+    margin: var(--space-3) 0 0;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .source-list li {
+    color: var(--color-ink-soft);
+  }
+
+  .process-steps {
+    counter-reset: step;
+    list-style: none;
+    margin: var(--space-4) 0 0;
+    padding: 0;
+  }
+
+  .process-steps li {
+    counter-increment: step;
+    position: relative;
+    padding-left: 3rem;
+    padding-bottom: var(--space-6);
+    opacity: 0.35;
+    transition: opacity 0.5s ease;
+    transition-delay: calc(var(--index, 0) * 0.25s);
+  }
+
+  .process-steps li:last-child {
+    padding-bottom: 0;
+  }
+
+  .process-steps.is-visible li {
+    opacity: 1;
+  }
+
+  .process-steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-border);
+    background: transparent;
+    color: var(--color-ink-faint);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    transition-delay: calc(var(--index, 0) * 0.25s);
+  }
+
+  .process-steps.is-visible li::before {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+  }
+
+  .process-steps li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 1rem;
+    top: 2rem;
+    bottom: 0;
+    width: 1px;
+    background: var(--color-border);
+    transform: translateX(-50%);
+  }
+</style>
+
+<script>
+  const timelines = document.querySelectorAll<HTMLElement>(".process-steps");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        entry.target.classList.toggle("is-visible", entry.isIntersecting);
+      }
+    },
+    { threshold: 0.6 },
+  );
+
+  timelines.forEach((el) => observer.observe(el));
+</script>

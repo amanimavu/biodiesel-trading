@@ -9,6 +9,7 @@ interface Props {
   class?: string;
   layout?: "fixed" | "constrained" | "full-width";
   priority?: boolean;
+  scrim?: boolean;
 }
 
 const {
@@ -19,6 +20,7 @@ const {
   class: className,
   layout = "constrained",
   priority = false,
+  scrim = false,
 } = Astro.props;
 
 const placeholder = await getImage({
@@ -42,6 +44,7 @@ const placeholder = await getImage({
     layout={layout}
     loading={priority ? "eager" : "lazy"}
   />
+  {scrim && <div class="progressive-scrim" />}
 </div>
 
 <style>
@@ -75,11 +78,34 @@ const placeholder = await getImage({
   .progressive-wrapper :global(.progressive-full[data-loaded="true"]) {
     opacity: 1;
   }
+
+  .progressive-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.82) 0%,
+      rgba(0, 0, 0, 0.35) 55%,
+      rgba(0, 0, 0, 0.15) 100%
+    );
+    opacity: 0.35;
+    transition: opacity 0.4s ease-in-out;
+    pointer-events: none;
+  }
+
+  .progressive-wrapper[data-loaded="true"] .progressive-scrim {
+    opacity: 1;
+  }
 </style>
 
 <script>
   function markLoaded(img: HTMLImageElement) {
     img.dataset.loaded = "true";
+    img.closest<HTMLElement>(".progressive-wrapper")?.setAttribute(
+      "data-loaded",
+      "true",
+    );
   }
 
   document

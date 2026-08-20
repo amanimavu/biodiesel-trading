@@ -28,8 +28,8 @@ const {
     height={image.height}
     layout="full-width"
     priority
+    scrim
   />
-  <div class="hero-scrim"></div>
 
   <div class="hero-content container">
     <h1>{title}</h1>
@@ -52,17 +52,6 @@ const {
     inset: 0;
     width: 100%;
     height: 100%;
-  }
-
-  .hero-scrim {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.82) 0%,
-      rgba(0, 0, 0, 0.35) 55%,
-      rgba(0, 0, 0, 0.15) 100%
-    );
   }
 
   .hero-content {
