@@ -240,10 +240,29 @@ const bannerImage = product.heroImage ?? product.image;
 <script>
   const timelines = document.querySelectorAll<HTMLElement>(".process-steps");
 
+  let lastY = window.scrollY;
+  let direction: "up" | "down" = "down";
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      const currentY = window.scrollY;
+      direction = currentY > lastY ? "down" : "up";
+      lastY = currentY;
+    },
+    { passive: true },
+  );
+
   const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
-        entry.target.classList.toggle("is-visible", entry.isIntersecting);
+        if (entry.isIntersecting) {
+          if (direction === "down") {
+            entry.target.classList.add("is-visible");
+          }
+        } else if (direction === "up") {
+          entry.target.classList.remove("is-visible");
+        }
       }
     },
     { threshold: 0.6 },

@@ -30,7 +30,7 @@ export const products: ProductGroup[] = [
         slug: "waste-oils",
         title: "Used & Recovered Oils",
         description:
-            "UCO, POME, and expired oils sourced from vetted collection networks.",
+            "Used cooking oil, waste oil, and expired oils sourced from vetted collection networks.",
         image: usedCookingOil,
         heroImage: kitchenUsedCookingOil,
         sections: [
@@ -52,7 +52,7 @@ export const products: ProductGroup[] = [
             {
                 heading: "How Our Process Works",
                 steps: [
-                    "Sourcing — We work with a vetted network of collectors and producers who supply UCO, POME, and expired oils.",
+                    "Sourcing — We work with a vetted network of collectors and producers who supply used cooking oil, waste oil, and expired oils.",
                     "Verification — Every batch is checked and documented for quality and traceability before it moves.",
                     "Trading & Delivery — We match supply to buyer demand and coordinate logistics through to final delivery.",
                 ],
@@ -64,23 +64,23 @@ export const products: ProductGroup[] = [
         slug: "vegetable-oils",
         title: "Vegetable Oils",
         description:
-            "Sunflower, canola, and avocado oil sourced directly from producers.",
+            "Sunflower, canola, avocado, and macadamia oil sourced directly from producers.",
         image: soyOil,
         heroImage: sunflowerPressedOil,
         sections: [
             {
                 heading: "What Are Vegetable Oils?",
                 paragraphs: [
-                    "Vegetable oils are plant-derived oils pressed or extracted from seeds and fruit — including sunflower, canola (rapeseed), and avocado — valued for their consistent quality and high oil content.",
+                    "Vegetable oils are plant-derived oils pressed or extracted from seeds and fruit — including sunflower, canola (rapeseed), avocado, and macadamia — valued for their consistent quality and high oil content.",
                     "As a biodiesel feedstock, vegetable oils convert efficiently through transesterification and are traded both as virgin oils and as surplus or off-spec volumes from producers and processors.",
                 ],
                 listIntro: "The vegetable oils we trade include:",
-                list: ["Sunflower oil", "Canola (rapeseed) oil", "Avocado oil"],
+                list: ["Sunflower oil", "Canola (rapeseed) oil", "Avocado oil", "Macadamia oil"],
             },
             {
                 heading: "How Our Process Works",
                 steps: [
-                    "Sourcing — We work directly with producers and processors to secure consistent volumes of sunflower, canola, and avocado oil.",
+                    "Sourcing — We work directly with producers and processors to secure consistent volumes of sunflower, canola, avocado, and macadamia oil.",
                     "Verification — Every batch is checked and documented for quality and traceability before it moves.",
                     "Trading & Delivery — We match supply to buyer demand and coordinate logistics through to final delivery.",
                 ],
