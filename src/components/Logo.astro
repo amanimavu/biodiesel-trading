@@ -51,7 +51,13 @@ const {label, compact = false} = Astro.props
     .label{
         font-size: 0.8rem;
         font-weight: bolder;
-        color: var(--color-ink);
+        line-height: 1.2;
+        text-align: center;
+        background: linear-gradient(to bottom, #F9E322, #F9BD11, #C98220);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
     }
 
     .logo-container.compact{
