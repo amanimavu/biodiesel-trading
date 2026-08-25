@@ -1,8 +1,17 @@
 ---
 const details = [
-  { label: "Office", value: "Nairobi, Kenya" },
-  { label: "Phone", value: "+254759080224", href: "tel:+27000000000" },
-  { label: "Email", value: "info@goldentie.africa", href: "mailto:info@goldentie.africa" },
+  { label: "Office", items: [{ value: "Nairobi, Kenya" }] },
+  {
+    label: "Phone",
+    items: [{ value: "+254759080224", href: "tel:+27000000000" }],
+  },
+  {
+    label: "Email",
+    items: [
+      { value: "info@goldentie.africa", href: "mailto:info@goldentie.africa" },
+      { value: "goldentieltd@gmail.com", href: "mailto:goldentieltd@gmail.com" },
+    ],
+  },
 ];
 ---
 
@@ -21,10 +30,12 @@ const details = [
           details.map((detail) => (
             <li>
               <span class="contact-detail-label">{detail.label}</span>
-              {detail.href ? (
-                <a href={detail.href}>{detail.value}</a>
-              ) : (
-                <span>{detail.value}</span>
+              {detail.items.map((item) =>
+                item.href ? (
+                  <a href={item.href}>{item.value}</a>
+                ) : (
+                  <span>{item.value}</span>
+                )
               )}
             </li>
           ))
