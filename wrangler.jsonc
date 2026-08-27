@@ -11,4 +11,9 @@
     "observability": {
         "enabled": true,
     },
+    "vars": {
+        "CONTACT_RECIPIENTS": ["admin@goldentie.africa"],
+        "CONTACT_CC": ["goldentieltd@gmail.com"],
+        "CONTACT_FROM_ADDRESS": "admin@goldentie.africa",
+    },
 }

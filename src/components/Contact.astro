@@ -1,6 +1,6 @@
 ---
 const details = [
-  { label: "Office", items: [{ value: "Nairobi, Kenya" }] },
+  { label: "Office", items: [{ value: "Nairobi, Kenya", href: null }] },
   {
     label: "Phone",
     items: [{ value: "+254759080224", href: "tel:+27000000000" }],
@@ -43,7 +43,7 @@ const details = [
       </ul>
     </div>
 
-    <form class="contact-form card">
+    <form id="contact-form" class="contact-form card">
       <div class="form-row">
         <label for="name">Name</label>
         <input type="text" id="name" name="name" required />
@@ -70,7 +70,9 @@ const details = [
         <textarea id="message" name="message" rows="5" required></textarea>
       </div>
 
-      <button type="submit" class="btn btn-primary" disabled>Send Message</button>
+      <p class="form-status" role="status" hidden></p>
+
+      <button type="submit" class="btn btn-primary">Send Message</button>
     </form>
   </div>
 </section>
@@ -177,6 +179,24 @@ const details = [
     margin-top: var(--space-1);
   }
 
+  .contact-form .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .form-status {
+    margin: 0;
+    font-size: 0.9375rem;
+  }
+
+  .form-status[data-state="success"] {
+    color: var(--color-green);
+  }
+
+  .form-status[data-state="error"] {
+    color: #b3261e;
+  }
+
   @media (max-width: 860px) {
     .contact-grid {
       grid-template-columns: 1fr;
@@ -187,3 +207,35 @@ const details = [
     }
   }
 </style>
+
+<script>
+  import { actions } from "astro:actions";
+
+  const form = document.querySelector<HTMLFormElement>("#contact-form");
+  const status = form?.querySelector<HTMLParagraphElement>(".form-status");
+  const button = form?.querySelector<HTMLButtonElement>("button[type='submit']");
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!status || !button) return;
+
+    button.disabled = true;
+    button.textContent = "Sending…";
+    status.hidden = true;
+
+    const { error } = await actions.contact(new FormData(form));
+
+    if (error) {
+      status.textContent = error.message || "Something went wrong. Please try again.";
+      status.dataset.state = "error";
+    } else {
+      status.textContent = "Message sent — we'll be in touch shortly.";
+      status.dataset.state = "success";
+      form.reset();
+    }
+
+    status.hidden = false;
+    button.disabled = false;
+    button.textContent = "Send Message";
+  });
+</script>
