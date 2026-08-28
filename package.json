@@ -1,25 +1,26 @@
 {
-  "name": "biodiesel",
-  "type": "module",
-  "version": "0.0.1",
-  "engines": {
-    "node": ">=22.12.0"
-  },
-  "scripts": {
-    "dev": "astro dev  --background",
-    "dev:logs": "astro dev logs",
-    "dev:stop": "astro dev stop",
-    "dev:status": "astro dev status",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "generate-types": "wrangler types"
-  },
-  "dependencies": {
-    "@astrojs/cloudflare": "^14.2.0",
-    "astro": "^7.2.0"
-  },
-  "devDependencies": {
-    "wrangler": "^4.120.1"
-  }
+    "name": "biodiesel",
+    "type": "module",
+    "version": "0.0.1",
+    "engines": {
+        "node": ">=22.12.0"
+    },
+    "scripts": {
+        "dev": "astro dev  --background",
+        "dev:logs": "astro dev logs",
+        "dev:stop": "astro dev stop",
+        "dev:status": "astro dev status",
+        "build": "astro build",
+        "preview": "astro preview",
+        "astro": "astro",
+        "generate-types": "wrangler types",
+        "deploy": "wrangler deploy"
+    },
+    "dependencies": {
+        "@astrojs/cloudflare": "^14.2.0",
+        "astro": "^7.2.0"
+    },
+    "devDependencies": {
+        "wrangler": "^4.120.1"
+    }
 }
