@@ -2,6 +2,7 @@
 import { Font } from "astro:assets";
 import "../styles/global.css";
 import defaultOgImage from "../assets/images/hero-image.png";
+import logoUrl from "../assets/images/golden-tie-logo.svg?url";
 
 interface Props {
   title?: string;
@@ -17,6 +18,22 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = new URL(image.src, Astro.site);
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Golden Tie Biodiesel",
+  url: Astro.site?.toString(),
+  logo: new URL(logoUrl, Astro.site).toString(),
+  telephone: "+254759080224",
+  email: "admin@goldentie.africa",
+  areaServed: ["Kenya", "Uganda", "Tanzania", "Rwanda", "Burundi"],
+  parentOrganization: {
+    "@type": "Organization",
+    name: "Golden Tie Ltd",
+    url: "https://goldentie.africa",
+  },
+};
 ---
 
 <html lang="en">
@@ -53,6 +70,8 @@ const ogImageURL = new URL(image.src, Astro.site);
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImageURL} />
+
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
 	</head>
 	<body>
 		<slot />
