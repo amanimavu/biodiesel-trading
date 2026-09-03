@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://biodiesel.goldentie.africa/sitemap-index.xml

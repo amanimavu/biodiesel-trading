@@ -1,12 +1,22 @@
 ---
 import { Font } from "astro:assets";
 import "../styles/global.css";
+import defaultOgImage from "../assets/images/hero-image.png";
 
 interface Props {
   title?: string;
+  description?: string;
+  image?: ImageMetadata;
 }
 
-const { title = "Biodiesel Feedstock Trading — A Golden Tie Company" } = Astro.props;
+const {
+  title = "Biodiesel Feedstock Trading — A Golden Tie Company",
+  description = "Golden Tie's Biodiesel Feedstock Trading arm sources and trades used cooking oil, vegetable oils, and animal fats across East Africa, connecting suppliers and refiners.",
+  image = defaultOgImage,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(image.src, Astro.site);
 ---
 
 <html lang="en">
@@ -29,6 +39,20 @@ const { title = "Biodiesel Feedstock Trading — A Golden Tie Company" } = Astro
         <Font cssVariable="--font-montserrat" />
 
 		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImageURL} />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={canonicalURL} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageURL} />
 	</head>
 	<body>
 		<slot />

@@ -16,7 +16,11 @@ const { product } = Astro.props;
 const bannerImage = product.heroImage ?? product.image;
 ---
 
-<RootLayout title={`${product.title} — Biodiesel Feedstock Trading`}>
+<RootLayout
+  title={`${product.title} — Biodiesel Feedstock Trading`}
+  description={product.description}
+  image={bannerImage}
+>
   <Nav />
 
   <section class="product-hero">
