@@ -12,8 +12,8 @@
         "enabled": true,
     },
     "vars": {
-        "CONTACT_RECIPIENTS": ["admin@goldentie.africa"],
-        "CONTACT_CC": ["goldentieltd@gmail.com"],
-        "CONTACT_FROM_ADDRESS": "admin@goldentie.africa",
+        "CONTACT_RECIPIENTS": ["contact@goldentie.africa"],
+        "CONTACT_CC": ["biofeedstocktrader@gmail.com"],
+        "CONTACT_FROM_ADDRESS": "contact@goldentie.africa",
     },
 }
