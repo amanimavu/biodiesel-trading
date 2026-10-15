@@ -1,6 +1,11 @@
 # The Content-Security-Policy is NOT set here: it is emitted per-request by
 # worker/csp-nonce.mjs with a fresh nonce, so it cannot be a static file. See
 # astro.config.mjs for the directives and worker/csp-nonce.mjs for the header.
+#
+# Cross-Origin-Opener-Policy is deliberately absent. This site opens no popups and
+# its outbound links already carry rel="noopener noreferrer", so COOP protects
+# nothing here, while same-origin severing breaks pages opened inside mobile
+# WebViews and in-app browsers.
 
 /*
   X-Frame-Options: DENY
@@ -8,5 +13,4 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
-  Cross-Origin-Opener-Policy: same-origin
   X-DNS-Prefetch-Control: off
