@@ -1,13 +1,8 @@
-# Served by Cloudflare Workers Static Assets.
-#
-# script-src / style-src / img-src / font-src / connect-src are NOT set here on
-# purpose: they are emitted per-page as a SHA-256 hashed
-# <meta http-equiv="content-security-policy"> (see astro.config.mjs -> security.csp).
-# Only directives a <meta> tag cannot carry belong here, because when a policy is
-# delivered both ways the browser enforces the intersection of the two.
+# The Content-Security-Policy is NOT set here: it is emitted per-request by
+# worker/csp-nonce.mjs with a fresh nonce, so it cannot be a static file. See
+# astro.config.mjs for the directives and worker/csp-nonce.mjs for the header.
 
 /*
-  Content-Security-Policy: frame-ancestors 'none'
   X-Frame-Options: DENY
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Content-Type-Options: nosniff

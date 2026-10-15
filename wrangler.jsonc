@@ -7,6 +7,9 @@
     "assets": {
         "directory": "./dist",
         "binding": "ASSETS",
+        // Required so worker/csp-nonce.mjs runs on HTML responses. Without this the
+        // asset layer serves pages directly and never reaches the Worker.
+        "run_worker_first": true,
     },
     "observability": {
         "enabled": true,

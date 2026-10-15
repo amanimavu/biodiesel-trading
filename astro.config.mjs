@@ -5,6 +5,8 @@ import cloudflare from "@astrojs/cloudflare";
 
 import sitemap from "@astrojs/sitemap";
 
+import cspNonce from "./integrations/csp-nonce.mjs";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://biodiesel.goldentie.africa",
@@ -26,39 +28,14 @@ export default defineConfig({
       responsiveStyles: true,
   },
 
+  // No `security.csp` here on purpose. Astro can only emit a <meta> policy with
+  // build-time hashes, and Cloudflare JavaScript Detections is not supported with a
+  // nonce in a <meta> tag. Two policies also intersect, so a meta policy would block
+  // the per-request nonce that worker/csp-nonce.mjs injects. The Worker below is the
+  // single source of truth for the CSP.
   security: {
-      csp: {
-          algorithm: "SHA-256",
-
-          // Per-page directives. `frame-ancestors` lives in public/_headers instead,
-          // because browsers ignore it when delivered via <meta http-equiv>.
-          directives: [
-              "default-src 'self'",
-              "base-uri 'self'",
-              "object-src 'none'",
-              "form-action 'self'",
-              "frame-src 'none'",
-              "img-src 'self' data:",
-              "font-src 'self' https://fonts.gstatic.com",
-              "connect-src 'self'",
-              "manifest-src 'self'",
-              "upgrade-insecure-requests",
-          ],
-
-          styleDirective: {
-              resources: [
-                  { resource: "'self'", kind: "element" },
-                  { resource: "https://fonts.googleapis.com", kind: "element" },
-                  // Component `style="..."` attributes (image placeholders, --index).
-                  { resource: "'unsafe-inline'", kind: "attribute" },
-              ],
-          },
-
-          scriptDirective: {
-              resources: ["'self'"],
-          },
-      },
+      csp: false,
   },
 
-  integrations: [sitemap()],
+  integrations: [sitemap(), cspNonce()],
 });
